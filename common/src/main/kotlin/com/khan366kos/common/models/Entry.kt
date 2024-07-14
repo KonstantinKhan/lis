@@ -30,9 +30,7 @@ private fun Pair<String, String>.toCatalog(entries: List<Entry>) = Catalog(
 
 fun List<Entry>.toGroupsFromEntry(): List<Group> {
 
-//    val groupList = this.map { entry -> entry.groups.toList() }
     val groupList = this.map { entry -> entry.groups.toList() }.distinct()
-//    val uniqueGroups = groupList.flatten().filter { it.first.isNotBlank() && it.second.isNotBlank() }.distinct()
     val uniqueGroups = groupList.map { it.first() }.distinct()
 
     val groups: List<Group> = uniqueGroups.map { pair ->
@@ -43,9 +41,6 @@ fun List<Entry>.toGroupsFromEntry(): List<Group> {
             instances = emptyList()
         )
     }
-
-//    groups.forEach { println(it) }
-
     return groups
 }
 
@@ -76,58 +71,6 @@ fun innerGroups(
         }
         .toList()
     return result
-}
-
-//fun List<Entry>.toGroupsFromEntry() = this
-//    .asSequence()
-//    .map { entry: Entry -> entry.groups }
-//    .distinct().toList()
-//    .map {
-//        it.toList()
-//    }.flatten()
-//    .toList()
-//    .filter { it.first.isNotBlank() }
-//    .distinct().toGroups(this, this.uniqueGroupsCount() - maxOf { it.groups.size })
-
-fun List<Entry>.uniqueGroupsCount() = this
-    .asSequence().map { entry: Entry ->
-        entry.groups
-    }.distinct().toList().map {
-        it.toList()
-    }.flatten().distinct().size
-
-fun List<Pair<String, String>>.toGroups(entries: List<Entry>, count: Int) =
-    with(this) {
-        println(entries.maxOf { it.groups.size })
-        if (this.isEmpty()) emptyList()
-        else
-            if (this.size - count > 1)
-                listOf(
-                    this
-                        .first()
-                        .toGroup(
-                            this.slice(1 until this.size),
-                            entries
-                        )
-                )
-            else this.toGroupsWithInstance(entries)
-    }
-
-fun Pair<String, String>.toGroup(list: List<Pair<String, String>>, entries: List<Entry>): Group =
-    Group(
-        groupName = this.first,
-        groupId = this.second,
-        groups = list.toGroups(entries, entries.uniqueGroupsCount() - entries.maxOf { it.groups.size }),
-        instances = emptyList()
-    )
-
-fun List<Pair<String, String>>.toGroupsWithInstance(entries: List<Entry>) = this.map {
-    Group(
-        groupName = it.first,
-        groupId = it.second,
-        groups = emptyList(),
-        instances = entries.toInstances(it.second)
-    )
 }
 
 fun List<Entry>.toInstances(groupId: String): List<Instance> =
