@@ -11,20 +11,20 @@ class EntriesHandler(private val entries: List<Entry>) {
         .map {
             Reference(
                 referenceName = it.reference,
-                catalogs = listOf()
+                catalogs = catalogs()
             )
         }.distinct()
 
-    fun catalogs(): List<Catalog> = entries
+    private fun catalogs(): List<Catalog> = entries
         .map {
             Catalog(
                 catalogName = it.catalog,
                 catalogId = it.catalogId,
-                groups = listOf()
+                groups = firstLevelGroups()
             )
         }.distinct()
 
-    fun firstLevelGroups(): List<Group> = entries
+    private fun firstLevelGroups(): List<Group> = entries
         .map {
             with(it.groups.toList().first()) {
                 Group(
@@ -35,4 +35,31 @@ class EntriesHandler(private val entries: List<Entry>) {
                 )
             }
         }.distinct()
+
+    fun allGroupsPair() = entries.map { entry ->
+        entry.groups.toList()
+    }.distinct()
+
+    fun innerGroups(parentId: String, allGroupsPair: List<List<Pair<String, String>>>): List<Group> {
+        val result = allGroupsPair
+            .asSequence()
+            .filter { arr ->
+                arr.any { pair -> pair.second == parentId }
+            }.toList()
+            .asSequence()
+            .filter { arr -> arr.size >= arr.indexOf(arr.find { pair -> pair.second == parentId }) + 2 }
+            .map { arr ->
+                arr[arr.indexOf(arr.find { pair -> pair.second == parentId }) + 1]
+            }.distinct()
+            .filter { pair -> pair.first.isNotBlank() && pair.second.isNotBlank() }
+            .map { pair ->
+                Group(
+                    groupName = pair.first,
+                    groupId = pair.second,
+                    groups = innerGroups(pair.second, allGroupsPair),
+                    instances = listOf()
+                )
+            }.toList()
+        return result
+    }
 }
