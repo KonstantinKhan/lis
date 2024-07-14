@@ -1,0 +1,119 @@
+{
+    "reference_name": "Стандартные изделия",
+    "catalogs": [
+        {
+            "catalogName": "Стандартные изделия",
+            "catalogId": "8d45363e-b820-7e43-5d35-69e77eeef81b",
+            "groups": [
+                {
+                    "group_name": "Крепежные изделия",
+                    "group_id": "60ecfbd5-2bea-0969-0704-132a7de7d465",
+                    "groups": [
+                        {
+                            "group_name": "Болты",
+                            "group_id": "37a64460-12a0-aa7e-ca3d-a91b18b70d22",
+                            "groups": [
+                                {
+                                    "group_name": "Болты конические",
+                                    "group_id": "9889adc0-47d0-d923-671e-290022273b5f",
+                                    "groups": [
+                                        {
+                                            "group_name": "Болт ГОСТ 15163-78",
+                                            "group_id": "2e0ea3ed-b77a-0e1e-94cb-d3a6ee8f4d85",
+                                            "groups": [],
+                                            "instances": [
+                                                {
+                                                    "instance_name": "Болт М12x1,25-6gx32.029 ГОСТ 15163-78",
+                                                    "instance_id": "PART:6078567c-0f52-ccab-bd90-22c606445b76",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М12x1,25-6gx90.029 ГОСТ 15163-78",
+                                                    "instance_id": "PART:eebdccc7-9d86-ed7c-31d0-74f148f456af",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М10x1,25-6gx30.68.029 ГОСТ 15163-78",
+                                                    "instance_id": "PART:40ae3bb0-24d1-47d4-abce-789cdf810dae",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М12x1,25-6gx56.029 ГОСТ 15163-78",
+                                                    "instance_id": "PART:7bfc23d9-eb71-8ff2-b80a-a66d8658f886",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М10x1,25-6gx30 ГОСТ 15163-78",
+                                                    "instance_id": "PART:a6338958-c786-a327-ef22-7f07cc25e025",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М4-6gx20.023 ГОСТ 15163-78",
+                                                    "instance_id": "PART:9047e97a-807a-0922-9445-9bf4344006cf",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М12x1,25-6gx45.029 ГОСТ 15163-78",
+                                                    "instance_id": "PART:2026a059-7f37-42c9-5aa5-ccf4bb4ab762",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М12x1,25-6gx63.029 ГОСТ 15163-78",
+                                                    "instance_id": "PART:8319a910-c985-d2e2-c122-8d0728ca5515",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М12x1,25-6gx50.029 ГОСТ 15163-78",
+                                                    "instance_id": "PART:0662a07f-e41b-fee2-8c90-5712d5107490",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М10-6gx40 ГОСТ 15163-78",
+                                                    "instance_id": "PART:0137e204-37a8-dbef-cec0-4430fda6bd06",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М4-6gx20 ГОСТ 15163-78",
+                                                    "instance_id": "PART:595b5c0a-5b35-c818-0e86-4212d69621f8",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М12x1,25-6gx71.029 ГОСТ 15163-78",
+                                                    "instance_id": "PART:2aa9dead-8065-9c60-2382-da51112fa5f6",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М4-6gx22.58.016 ГОСТ 15163-78",
+                                                    "instance_id": "PART:71d0feb6-5084-1019-6ee0-1c711a6572e2",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М12x1,25-6gx30.029 ГОСТ 15163-78",
+                                                    "instance_id": "PART:39047a65-c2f1-bf90-df94-c30adf8c3643",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М12-6gx50.58.019 ГОСТ 15163-78",
+                                                    "instance_id": "PART:e0bb5565-a8e8-3e48-c54b-0ba014db5c94",
+                                                    "isApproved": true
+                                                },
+                                                {
+                                                    "instance_name": "Болт М12x1,25-6gx80.029 ГОСТ 15163-78",
+                                                    "instance_id": "PART:a2351a95-65ab-36eb-2190-2822e64c5565",
+                                                    "isApproved": true
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "instances": []
+                                }
+                            ],
+                            "instances": []
+                        }
+                    ],
+                    "instances": []
+                }
+            ]
+        }
+    ]
+}
