@@ -39,56 +39,5 @@ fun main() {
         .use { out ->
             out.println(json.encodeToString(handler.references()))
         }
-
-//    val groupList = entries.map { entry -> entry.groups.toList() }.distinct()
-//    val uniqueGroups = groupList.map { it.first() }.distinct()
-//
-//    fun innerGroups(parentId: String, allGroups: List<List<Pair<String, String>>>): List<Group> {
-//        val result = allGroups
-//            .asSequence()
-//            .filter { a ->
-//                a.any { b -> b.second == parentId }
-//            }
-//            .toList()
-//            .asSequence()
-//            .filter { a -> a.size >= a.indexOf(a.find { pair -> pair.second == parentId }) + 2 }
-//            .map { a ->
-//                a[a.indexOf(a.find { pair -> pair.second == parentId }) + 1]
-//            }
-//            .distinct().filter { a -> a.first.isNotBlank() && a.second.isNotBlank() }
-//            .map { pair ->
-//                Group(
-//                    groupName = pair.first,
-//                    groupId = pair.second,
-//                    groups = innerGroups(pair.second, groupList),
-//                    instances = listOf()
-//                )
-//            }
-//            .toList()
-//        return result
-//    }
-//
-//    val groups: List<Group> = uniqueGroups.map { pair ->
-//        Group(
-//            groupName = pair.first,
-//            groupId = pair.second,
-//            groups = innerGroups(pair.second, groupList),
-//            instances = listOf()
-//        )
-//    }
-// ----------------------------------
-//    val result = with(entries) {
-//        reference {
-//            referenceName = toReferenceName()
-//            catalogs = toCatalogs()
-//        }
-//    }
-//
-//    val json = Json { prettyPrint = true }
-//
-//    File("file.json").printWriter()
-//        .use { out ->
-//            out.println(json.encodeToString(result))
-//        }
 }
 
