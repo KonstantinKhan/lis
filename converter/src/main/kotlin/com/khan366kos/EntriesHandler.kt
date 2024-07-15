@@ -46,10 +46,10 @@ class EntriesHandler(private val entries: List<Entry>) {
             .map {
                 with(it) {
                     Group(
-                        groupName = first,
-                        groupId = second,
-                        groups = innerGroups(second, allGroupsPair),
-                        instances = instances(second)
+                        groupName = second,
+                        groupId = first,
+                        groups = innerGroups(first, allGroupsPair),
+                        instances = instances(first)
                     )
                 }
             }.distinct()
@@ -59,20 +59,24 @@ class EntriesHandler(private val entries: List<Entry>) {
         val result = allGroupsPair
             .asSequence()
             .filter { arr ->
-                arr.any { pair -> pair.second == parentId }
+                arr.any { pair ->
+                    pair.first == parentId
+                }
             }.toList()
             .asSequence()
-            .filter { arr -> arr.size >= arr.indexOf(arr.find { pair -> pair.second == parentId }) + 2 }
+            .filter { arr ->
+                arr.size >= arr.indexOf(arr.find { pair -> pair.first == parentId }) + 2
+            }
             .map { arr ->
-                arr[arr.indexOf(arr.find { pair -> pair.second == parentId }) + 1]
+                arr[arr.indexOf(arr.find { pair -> pair.first == parentId }) + 1]
             }.distinct()
             .filter { pair -> pair.first.isNotBlank() && pair.second.isNotBlank() }
             .map { pair ->
                 Group(
-                    groupName = pair.first,
-                    groupId = pair.second,
-                    groups = innerGroups(pair.second, allGroupsPair),
-                    instances = instances(pair.second)
+                    groupName = pair.second,
+                    groupId = pair.first,
+                    groups = innerGroups(pair.first, allGroupsPair),
+                    instances = instances(pair.first)
                 )
             }.toList()
         return result
@@ -81,7 +85,7 @@ class EntriesHandler(private val entries: List<Entry>) {
     private fun instances(groupId: String): List<Instance> = entries
         .filter { entry: Entry ->
             entry.groups.toList()
-                .last().second == groupId
+                .last().first == groupId
         }.map {
             if (it.instance.isNotBlank())
                 Instance(

@@ -78,7 +78,9 @@ class Workbook(path: Path) {
                     instanceId = row.getCell(entryHeaders.instanceId).toString(),
                     isApproved = try { row.getCell(entryHeaders.isApproved).toString() == "Разрешен к применению" } catch (e: Exception) { false},
                     groups = entryHeaders.catalogs.map { (k, v) ->
-                        row.getCell(k).toString() to row.getCell(v).toString()
+                        row.getCell(v).toString() to row.getCell(k).toString()
+                    }.filter {
+                        it.first.isNotBlank() && it.second.isNotBlank()
                     }.toMap()
                 )
             }
