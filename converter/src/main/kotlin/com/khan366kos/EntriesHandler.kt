@@ -1,46 +1,61 @@
 package com.khan366kos.com.khan366kos
 
-import com.khan366kos.common.models.Catalog
-import com.khan366kos.common.models.Entry
-import com.khan366kos.common.models.Group
-import com.khan366kos.common.models.Reference
+import com.khan366kos.common.models.*
 
 class EntriesHandler(private val entries: List<Entry>) {
 
     fun references(): List<Reference> = entries
-        .map {
+        .map { entry ->
+            entry.reference
+        }.distinct()
+        .map { reference ->
             Reference(
-                referenceName = it.reference,
-                catalogs = catalogs()
+                referenceName = reference,
+                catalogs = catalogs(reference)
             )
         }.distinct()
 
-    private fun catalogs(): List<Catalog> = entries
+    private fun catalogs(reference: String): List<Catalog> = entries
+        .filter { entry ->
+            entry.reference == reference
+        }.distinct()
         .map {
             Catalog(
                 catalogName = it.catalog,
                 catalogId = it.catalogId,
-                groups = firstLevelGroups()
+                groups = firstLevelGroups(it.catalogId)
             )
         }.distinct()
 
-    private fun firstLevelGroups(): List<Group> = entries
-        .map {
-            with(it.groups.toList().first()) {
-                Group(
-                    groupName = first,
-                    groupId = second,
-                    groups = listOf(),
-                    instances = listOf()
-                )
-            }
+    private val allGroupsPair: List<List<Pair<String, String>>> by lazy {
+        entries.map { entry ->
+            entry.groups.toList()
         }.distinct()
+    }
 
-    fun allGroupsPair() = entries.map { entry ->
-        entry.groups.toList()
-    }.distinct()
+    private fun firstLevelGroups(catalogId: String): List<Group> =
+        entries
+            .asSequence()
+            .filter { entry ->
+                entry.catalogId == catalogId
+            }.distinct()
+            .map { entry ->
+                entry.groups.toList().first()
+            }
+            .distinct()
+            .map {
+                with(it) {
+                    Group(
+                        groupName = first,
+                        groupId = second,
+                        groups = innerGroups(second, allGroupsPair),
+                        instances = instances(second)
+                    )
+                }
+            }.distinct()
+            .toList()
 
-    fun innerGroups(parentId: String, allGroupsPair: List<List<Pair<String, String>>>): List<Group> {
+    private fun innerGroups(parentId: String, allGroupsPair: List<List<Pair<String, String>>>): List<Group> {
         val result = allGroupsPair
             .asSequence()
             .filter { arr ->
@@ -57,9 +72,23 @@ class EntriesHandler(private val entries: List<Entry>) {
                     groupName = pair.first,
                     groupId = pair.second,
                     groups = innerGroups(pair.second, allGroupsPair),
-                    instances = listOf()
+                    instances = instances(pair.second)
                 )
             }.toList()
         return result
     }
+
+    private fun instances(groupId: String): List<Instance> = entries
+        .filter { entry: Entry ->
+            entry.groups.toList()
+                .last().second == groupId
+        }.map {
+            if (it.instance.isNotBlank())
+                Instance(
+                    name = it.instance,
+                    id = it.instanceId,
+                    isApproved = it.isApproved
+                )
+            else return emptyList()
+        }
 }
